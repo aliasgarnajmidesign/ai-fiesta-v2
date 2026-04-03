@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'AI Estimator',
+  title: 'AI Estimator - Chat',
   description: 'UAE Construction Estimating Assistant',
 };
 
@@ -10,5 +10,5 @@ export default function EstimatorLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main>{children}</main>;
+  return <>{children}</>;
 }
