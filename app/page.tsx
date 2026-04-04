@@ -79,11 +79,6 @@ export default function RoyalProfessionalLanding() {
         }
 
         ::-webkit-scrollbar { width: 0; }
-        
-        /* Subtle parallax - no crazy movement */
-        .parallax-subtle {
-          transform: translateY($${scrollY * 0.1}px);
-        }
       `}</style>
 
       <div className="royal-gradient" style={{ minHeight: "100vh", color: "#ffffff" }}>
@@ -124,16 +119,23 @@ export default function RoyalProfessionalLanding() {
               {["Features", "Solutions", "Pricing", "Contact"].map((item) => (
                 <a 
                   key={item}
-                  href={`#$${item.toLowerCase()}`}
+                  href={`#${item.toLowerCase()}`}
                   className="smooth-transition"
                   style={{ 
                     textDecoration: "none", 
                     color: "rgba(255, 255, 255, 0.8)",
                     fontSize: "16px",
-                    letterSpacing: "0.5px"
+                    letterSpacing: "0.5px",
+                    cursor: "pointer"
                   }}
-                  onMouseEnter={(e) => e.target.style.color = "#d4af37"}
-                  onMouseLeave={(e) => e.target.style.color = "rgba(255, 255, 255, 0.8)"}
+                  onMouseEnter={(e) => {
+                    const element = e.currentTarget as HTMLAnchorElement;
+                    element.style.color = "#d4af37";
+                  }}
+                  onMouseLeave={(e) => {
+                    const element = e.currentTarget as HTMLAnchorElement;
+                    element.style.color = "rgba(255, 255, 255, 0.8)";
+                  }}
                 >
                   {item}
                 </a>
