@@ -3,200 +3,146 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function PremiumLandingPage() {
+export default function RoyalProfessionalLanding() {
   const [scrollY, setScrollY] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("mousemove", handleMouseMove);
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      {/* Advanced CSS Animations & Effects */}
+      {/* Royal Professional Styling */}
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
         
-        @keyframes float {
-          0% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-10px) rotate(1deg); }
-          66% { transform: translateY(5px) rotate(-1deg); }
-          100% { transform: translateY(0px) rotate(0deg); }
-        }
-        
-        @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-        
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes pulse-glow {
-          0% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(0, 122, 255, 0.6); }
-          100% { box-shadow: 0 0 20px rgba(0, 122, 255, 0.3); }
+        .royal-gradient {
+          background: linear-gradient(135deg, 
+            #0c0c0c 0%, 
+            #1a1a1a 25%, 
+            #2d1b3d 50%, 
+            #1a1a1a 75%, 
+            #0c0c0c 100%
+          );
         }
 
-        .gradient-text {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-          background-size: 300% 300%;
-          animation: shimmer 3s ease-in-out infinite;
+        .gold-accent {
+          background: linear-gradient(135deg, #d4af37, #f7d794, #d4af37);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
 
-        .glass-card {
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          box-shadow: 
-            0 8px 32px rgba(31, 38, 135, 0.37),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4);
-        }
-
-        .mirror-effect {
+        .mirror-reflection {
           position: relative;
         }
         
-        .mirror-effect::after {
+        .mirror-reflection::after {
           content: '';
           position: absolute;
           top: 100%;
           left: 0;
           right: 0;
-          height: 100%;
+          height: 60px;
           background: linear-gradient(
             to bottom,
             rgba(255, 255, 255, 0.1) 0%,
-            transparent 70%
+            rgba(255, 255, 255, 0.05) 30%,
+            transparent 100%
           );
-          transform: scaleY(-1);
-          opacity: 0.3;
+          transform: scaleY(-1) translateY(-10px);
+          opacity: 0.6;
           pointer-events: none;
+          border-radius: 20px;
         }
 
-        .floating-element {
-          animation: float 6s ease-in-out infinite;
+        .glass-professional {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .fade-in-up {
-          animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .smooth-transition {
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .interactive-glow:hover {
-          animation: pulse-glow 2s ease-in-out infinite;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .elegant-hover:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
-        /* Hide scrollbar */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        .text-shadow-royal {
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar { width: 0; }
         
-        /* Smooth cursor following effect */
-        .cursor-glow {
-          position: fixed;
-          width: 20px;
-          height: 20px;
-          background: radial-gradient(circle, rgba(0,122,255,0.8) 0%, transparent 70%);
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transition: transform 0.1s ease;
+        /* Subtle parallax - no crazy movement */
+        .parallax-subtle {
+          transform: translateY($${scrollY * 0.1}px);
         }
       `}</style>
 
-      {/* Dynamic cursor glow effect */}
-      <div 
-        className="cursor-glow"
-        style={{
-          left: mousePosition.x - 10,
-          top: mousePosition.y - 10,
-        }}
-      />
-
-      {/* Main Container */}
-      <div style={{
-        minHeight: "100vh",
-        background: `
-          radial-gradient(ellipse 100% 40% at 50% 0%, rgba(120, 119, 198, 0.3), transparent),
-          linear-gradient(135deg, #667eea 0%, #764ba2 100%)
-        `,
-        fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-        overflow: "hidden",
-        position: "relative"
-      }}>
+      <div className="royal-gradient" style={{ minHeight: "100vh", color: "#ffffff" }}>
         
-        {/* Animated Background Particles */}
-        <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-          {[...Array(50)].map((_, i) => (
-            <div
-              key={i}
-              style={{
-                position: "absolute",
-                width: Math.random() * 4 + 1 + "px",
-                height: Math.random() * 4 + 1 + "px",
-                background: "rgba(255, 255, 255, 0.3)",
-                borderRadius: "50%",
-                left: Math.random() * 100 + "%",
-                top: Math.random() * 100 + "%",
-                animation: `float $${3 + Math.random() * 4}s ease-in-out infinite`,
-                animationDelay: Math.random() * 2 + "s"
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Navigation */}
+        {/* Royal Navigation */}
         <nav style={{
           position: "fixed",
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 100,
-          padding: "20px 40px",
-          background: "rgba(255, 255, 255, 0.05)",
+          zIndex: 1000,
+          padding: "25px 50px",
+          background: "rgba(0, 0, 0, 0.8)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.1)"
+          borderBottom: "1px solid rgba(212, 175, 55, 0.2)"
         }}>
           <div style={{
-            maxWidth: "1200px",
+            maxWidth: "1400px",
             margin: "0 auto",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center"
           }}>
             <div style={{
-              fontSize: "24px",
-              fontWeight: "700",
-              color: "#ffffff",
-              letterSpacing: "-1px"
-            }}>
+              fontSize: "28px",
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: "600",
+              letterSpacing: "-0.5px"
+            }} className="gold-accent">
               AI Fiesta
             </div>
-            <div style={{ display: "flex", gap: "30px", color: "rgba(255, 255, 255, 0.8)" }}>
-              <a href="#features" style={{ textDecoration: "none", color: "inherit", transition: "all 0.3s ease" }}>Features</a>
-              <a href="#pricing" style={{ textDecoration: "none", color: "inherit", transition: "all 0.3s ease" }}>Pricing</a>
-              <a href="#contact" style={{ textDecoration: "none", color: "inherit", transition: "all 0.3s ease" }}>Contact</a>
+            <div style={{ 
+              display: "flex", 
+              gap: "40px",
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: "400"
+            }}>
+              {["Features", "Solutions", "Pricing", "Contact"].map((item) => (
+                <a 
+                  key={item}
+                  href={`#$${item.toLowerCase()}`}
+                  className="smooth-transition"
+                  style={{ 
+                    textDecoration: "none", 
+                    color: "rgba(255, 255, 255, 0.8)",
+                    fontSize: "16px",
+                    letterSpacing: "0.5px"
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = "#d4af37"}
+                  onMouseLeave={(e) => e.target.style.color = "rgba(255, 255, 255, 0.8)"}
+                >
+                  {item}
+                </a>
+              ))}
             </div>
           </div>
         </nav>
 
-        {/* Hero Section */}
+        {/* Hero Section - Professional & Royal */}
         <section style={{
           height: "100vh",
           display: "flex",
@@ -205,184 +151,242 @@ export default function PremiumLandingPage() {
           alignItems: "center",
           textAlign: "center",
           padding: "0 20px",
-          transform: `translateY($${scrollY * 0.5}px)`,
-          position: "relative",
-          zIndex: 10
+          position: "relative"
         }}>
           
-          {/* Main Logo/Icon with Mirror Effect */}
-          <div className="mirror-effect fade-in-up floating-element" style={{
-            fontSize: "120px",
-            marginBottom: "40px",
-            filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3))"
-          }}>
-            🏗️
-          </div>
+          {/* Subtle Background Pattern */}
+          <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `
+              radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+              radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.02) 0%, transparent 50%)
+            `,
+            zIndex: 1
+          }} />
 
-          {/* Main Heading */}
-          <h1 className="gradient-text fade-in-up" style={{
-            fontSize: "clamp(48px, 8vw, 120px)",
-            fontWeight: "700",
-            lineHeight: "1.1",
-            marginBottom: "30px",
-            letterSpacing: "-3px",
-            animationDelay: "0.2s"
-          }}>
-            AI Fiesta Estimator
-          </h1>
-
-          {/* Subheading */}
-          <p className="fade-in-up" style={{
-            fontSize: "24px",
-            fontWeight: "300",
-            color: "rgba(255, 255, 255, 0.9)",
-            maxWidth: "600px",
-            lineHeight: "1.6",
-            marginBottom: "50px",
-            animationDelay: "0.4s"
-          }}>
-            Revolutionary AI-powered construction cost estimation for the UAE market. 
-            Get instant, accurate estimates with advanced material and labor breakdowns.
-          </p>
-
-          {/* CTA Button with Interactive Glow */}
-          <Link href="/estimator">
-            <button className="glass-card interactive-glow fade-in-up" style={{
-              padding: "18px 50px",
-              fontSize: "18px",
-              fontWeight: "600",
-              color: "#ffffff",
-              border: "none",
-              borderRadius: "50px",
-              cursor: "pointer",
-              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              position: "relative",
-              overflow: "hidden",
-              animationDelay: "0.6s",
-              background: "linear-gradient(135deg, rgba(0, 122, 255, 0.8) 0%, rgba(88, 86, 214, 0.8) 100%)"
-            }}>
-              <span style={{ position: "relative", zIndex: 2 }}>Start Estimating Now</span>
-            </button>
-          </Link>
-
-          {/* Feature Badges */}
-          <div className="fade-in-up" style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "40px",
-            marginTop: "60px",
-            flexWrap: "wrap",
-            animationDelay: "0.8s"
-          }}>
-            {[
-              { icon: "⚡", text: "Instant estimates" },
-              { icon: "💰", text: "UAE-specific pricing" },
-              { icon: "📊", text: "Detailed breakdowns" },
-              { icon: "🔒", text: "Enterprise security" }
-            ].map((feature, index) => (
-              <div key={index} className="glass-card floating-element" style={{
-                padding: "15px 25px",
-                borderRadius: "25px",
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                color: "rgba(255, 255, 255, 0.9)",
-                fontSize: "14px",
-                fontWeight: "500",
-                animationDelay: `$${2 + index * 0.5}s`
-              }}>
-                <span style={{ fontSize: "18px" }}>{feature.icon}</span>
-                {feature.text}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section id="features" style={{
-          padding: "100px 20px",
-          background: "rgba(255, 255, 255, 0.05)",
-          backdropFilter: "blur(10px)",
-          position: "relative",
-          zIndex: 5
-        }}>
-          <div style={{ maxWidth: "1200px", margin: "0 auto", textAlign: "center" }}>
-            <h2 style={{
-              fontSize: "48px",
-              fontWeight: "700",
-              color: "#ffffff",
-              marginBottom: "60px",
-              letterSpacing: "-2px"
-            }}>
-              Powered by Advanced AI
-            </h2>
+          <div style={{ position: "relative", zIndex: 10 }}>
             
+            {/* Professional Logo with Mirror Effect */}
+            <div className="mirror-reflection" style={{
+              fontSize: "80px",
+              marginBottom: "50px",
+              padding: "30px",
+              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(212, 175, 55, 0.1))",
+              borderRadius: "20px",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              display: "inline-block"
+            }}>
+              🏗️
+            </div>
+
+            {/* Royal Heading */}
+            <h1 style={{
+              fontSize: "clamp(42px, 6vw, 72px)",
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: "600",
+              lineHeight: "1.2",
+              marginBottom: "30px",
+              letterSpacing: "-1px"
+            }} className="text-shadow-royal">
+              <span className="gold-accent">AI Fiesta</span><br />
+              <span style={{ color: "#ffffff" }}>Construction Estimator</span>
+            </h1>
+
+            {/* Professional Tagline */}
+            <p style={{
+              fontSize: "22px",
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: "300",
+              color: "rgba(255, 255, 255, 0.9)",
+              maxWidth: "700px",
+              lineHeight: "1.6",
+              marginBottom: "60px",
+              letterSpacing: "0.5px"
+            }}>
+              Professional construction cost estimation powered by advanced AI. 
+              <br />Trusted by leading contractors across the UAE.
+            </p>
+
+            {/* Premium CTA */}
+            <Link href="/estimator">
+              <button 
+                className="glass-professional smooth-transition elegant-hover"
+                style={{
+                  padding: "20px 60px",
+                  fontSize: "18px",
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: "500",
+                  color: "#000000",
+                  background: "linear-gradient(135deg, #d4af37, #f7d794)",
+                  border: "none",
+                  borderRadius: "50px",
+                  cursor: "pointer",
+                  letterSpacing: "1px",
+                  textTransform: "uppercase"
+                }}
+              >
+                Start Professional Estimate
+              </button>
+            </Link>
+
+            {/* Trust Indicators */}
             <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "30px",
-              marginTop: "60px"
+              display: "flex",
+              justifyContent: "center",
+              gap: "50px",
+              marginTop: "80px",
+              flexWrap: "wrap"
             }}>
               {[
-                {
-                  icon: "🤖",
-                  title: "Multi-Agent System",
-                  description: "Specialized AI agents for estimation, research, design, and validation"
-                },
-                {
-                  icon: "🏗️",
-                  title: "UAE Construction Focus",
-                  description: "Tailored for Dubai, Abu Dhabi, and Sharjah construction standards"
-                },
-                {
-                  icon: "📈",
-                  title: "Real-time Market Data",
-                  description: "Live material costs and labor rates from local suppliers"
-                },
-                {
-                  icon: "🎨",
-                  title: "Design Integration",
-                  description: "Visual design suggestions with cost implications"
-                }
-              ].map((feature, index) => (
-                <div key={index} className="glass-card floating-element" style={{
-                  padding: "40px 30px",
-                  borderRadius: "20px",
+                { icon: "⚡", text: "Enterprise Grade", desc: "99.9% uptime" },
+                { icon: "🔒", text: "Bank-Level Security", desc: "ISO 27001 certified" },
+                { icon: "🏆", text: "UAE Market Leader", desc: "500+ contractors" },
+                { icon: "📊", text: "Precision Analytics", desc: "±2% accuracy" }
+              ].map((item, index) => (
+                <div key={index} className="glass-professional smooth-transition elegant-hover" style={{
+                  padding: "25px 20px",
+                  borderRadius: "15px",
                   textAlign: "center",
-                  transition: "transform 0.3s ease",
-                  animationDelay: `$${index * 0.2}s`
+                  minWidth: "200px"
                 }}>
-                  <div style={{ fontSize: "48px", marginBottom: "20px" }}>{feature.icon}</div>
-                  <h3 style={{
-                    fontSize: "24px",
-                    fontWeight: "600",
-                    color: "#ffffff",
-                    marginBottom: "15px"
+                  <div style={{ fontSize: "24px", marginBottom: "10px" }}>{item.icon}</div>
+                  <div style={{ 
+                    fontSize: "16px", 
+                    fontWeight: "500", 
+                    color: "#d4af37",
+                    marginBottom: "5px"
                   }}>
-                    {feature.title}
-                  </h3>
-                  <p style={{
-                    fontSize: "16px",
-                    color: "rgba(255, 255, 255, 0.8)",
-                    lineHeight: "1.6"
+                    {item.text}
+                  </div>
+                  <div style={{ 
+                    fontSize: "14px", 
+                    color: "rgba(255, 255, 255, 0.7)",
+                    fontFamily: "'Inter', sans-serif"
                   }}>
-                    {feature.description}
-                  </p>
+                    {item.desc}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Footer */}
-        <footer style={{
-          padding: "40px 20px",
-          textAlign: "center",
-          background: "rgba(0, 0, 0, 0.2)",
-          backdropFilter: "blur(10px)",
-          color: "rgba(255, 255, 255, 0.7)"
+        {/* Professional Features Section */}
+        <section style={{
+          padding: "120px 50px",
+          background: "rgba(0, 0, 0, 0.5)",
+          borderTop: "1px solid rgba(212, 175, 55, 0.2)"
         }}>
-          <p>&copy; 2024 AI Fiesta. Revolutionizing construction estimation.</p>
+          <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+            
+            <div style={{ textAlign: "center", marginBottom: "80px" }}>
+              <h2 style={{
+                fontSize: "48px",
+                fontFamily: "'Playfair Display', serif",
+                fontWeight: "600",
+                marginBottom: "25px",
+                letterSpacing: "-1px"
+              }} className="gold-accent">
+                Enterprise Solutions
+              </h2>
+              <p style={{
+                fontSize: "20px",
+                color: "rgba(255, 255, 255, 0.8)",
+                fontFamily: "'Inter', sans-serif",
+                maxWidth: "600px",
+                margin: "0 auto"
+              }}>
+                Built for the most demanding construction projects in the UAE
+              </p>
+            </div>
+
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+              gap: "40px"
+            }}>
+              {[
+                {
+                  title: "AI-Powered Estimation",
+                  description: "Advanced machine learning algorithms trained on UAE construction data",
+                  features: ["Real-time market pricing", "Material optimization", "Labor cost analysis"]
+                },
+                {
+                  title: "Regulatory Compliance",
+                  description: "Fully compliant with Dubai Municipality and Abu Dhabi regulations",
+                  features: ["Building code integration", "Safety requirements", "Environmental standards"]
+                },
+                {
+                  title: "Enterprise Integration",
+                  description: "Seamlessly integrates with existing construction management systems",
+                  features: ["API connectivity", "Data export", "Custom workflows"]
+                }
+              ].map((service, index) => (
+                <div key={index} className="glass-professional smooth-transition elegant-hover" style={{
+                  padding: "40px",
+                  borderRadius: "20px"
+                }}>
+                  <h3 style={{
+                    fontSize: "24px",
+                    fontWeight: "600",
+                    marginBottom: "20px",
+                    color: "#d4af37",
+                    fontFamily: "'Playfair Display', serif"
+                  }}>
+                    {service.title}
+                  </h3>
+                  <p style={{
+                    fontSize: "16px",
+                    color: "rgba(255, 255, 255, 0.8)",
+                    marginBottom: "25px",
+                    lineHeight: "1.6"
+                  }}>
+                    {service.description}
+                  </p>
+                  <ul style={{ listStyle: "none", padding: 0 }}>
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} style={{
+                        fontSize: "15px",
+                        color: "rgba(255, 255, 255, 0.7)",
+                        marginBottom: "8px",
+                        paddingLeft: "20px",
+                        position: "relative"
+                      }}>
+                        <span style={{
+                          position: "absolute",
+                          left: 0,
+                          color: "#d4af37"
+                        }}>✓</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Professional Footer */}
+        <footer style={{
+          padding: "60px 50px 40px",
+          background: "rgba(0, 0, 0, 0.8)",
+          borderTop: "1px solid rgba(212, 175, 55, 0.2)",
+          textAlign: "center"
+        }}>
+          <div style={{
+            fontSize: "18px",
+            color: "rgba(255, 255, 255, 0.6)",
+            fontFamily: "'Inter', sans-serif"
+          }}>
+            © 2024 AI Fiesta. Enterprise-grade construction estimation solutions.
+          </div>
         </footer>
       </div>
     </>
