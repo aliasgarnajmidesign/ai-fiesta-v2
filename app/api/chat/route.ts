@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GoogleGenerativeAIStream, StreamingTextResponse } from "ai";
 
-export const runtime = "nodejs"; // more compatible for SDK + streaming
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   try {
@@ -19,13 +19,11 @@ export async function POST(req: Request) {
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      // flash is widely allowed and fast; switch to "gemini-1.5-pro" later if desired
       model: "gemini-1.5-flash",
       systemInstruction:
         "You are AI Fiesta, an expert construction cost estimator for UAE projects. Provide estimates in AED with material and labor breakdowns. Be concise and helpful.",
     });
 
-    // Map Vercel AI SDK messages to Gemini format
     const contents =
       Array.isArray(messages) && messages.length
         ? messages.map((m: any) => ({
@@ -46,10 +44,4 @@ export async function POST(req: Request) {
       headers: { "Content-Type": "application/json" },
     });
   }
-}
-
-export async function GET() {
-  return new Response(JSON.stringify({ ok: true, route: "/api/chat" }), {
-    headers: { "Content-Type": "application/json" },
-  });
 }
