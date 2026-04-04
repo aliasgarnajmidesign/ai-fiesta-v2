@@ -32,11 +32,8 @@ export default function Home() {
               backgroundColor: "#2563eb",
               border: "none",
               borderRadius: "8px",
-              cursor: "pointer",
-              transition: "background-color 0.3s ease",
+              cursor: "pointer"
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1e40af")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#2563eb")}
           >
             Start Estimating
           </button>
