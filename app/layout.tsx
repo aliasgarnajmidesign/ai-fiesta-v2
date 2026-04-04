@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Construction Estimator",
+  title: "AI Fiesta Estimator",
   description: "Smart construction estimation with AI",
 };
 
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>
+      <body style={{ margin: 0, padding: 0 }}>
         {children}
       </body>
     </html>
